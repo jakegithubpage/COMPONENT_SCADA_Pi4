@@ -8,4 +8,5 @@
 -> mkdir build && cd build
 -> run "cmake .."
 -> run "make" 
+-> in two seperate terminals launch ./master and ./gateway -> make sure to be in build
 -> ON EVERY LAUNCH, delete prev build file in your created folder (rm -rf build) and rebuild with same process
