@@ -1,0 +1,11 @@
+#SETUP FOR MASTER?OUTSTATION SETUP
+-> Create folder holding all files in TCPMon_MAs
+-> Change IP ADDR's in each file to YOUR used Network IP
+-> install Cmake, Clone opendnp3 (https://github.com/dnp3/opendnp3)
+-> mkdir build in opendnp3 download location, cd build, then run "cmake .." -> then run "make"
+-> update system apt and install
+-> Next, Cd into Your created folder for the stations
+-> mkdir build && cd build
+-> run "cmake .."
+-> run "make" 
+-> ON EVERY LAUNCH, delete prev build file in your created folder (rm -rf build) and rebuild with same process
