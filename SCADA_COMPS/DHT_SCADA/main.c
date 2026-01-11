@@ -27,14 +27,14 @@
 #define DHT_TYPE       DHT_TYPE_DHT11
 #define DEVICE_ID      0
 
-#define WIFI_SSID      "@vanc1s"
-#define WIFI_PASS      "ynot21769"
+#define WIFI_SSID      "xxxxx"
+#define WIFI_PASS      "xxxxx"
 
-#define GATEWAY_IP     "192.168.1.52"   // Linux outstation IP
+#define GATEWAY_IP     "x.x.x.x"   // Linux outstation IP
 #define GATEWAY_PORT   9100            // TCP listener port
 #define DEVICE_ID 0
 
-#define MQTT_URI       "mqtt://192.168.1.52:1885"
+#define MQTT_URI       "mqtt://x.x.x.x:1885"
 #define MQTT_SUB_TOPIC "sensors/dht/0/cmd"
 #define MQTT_PUB_TOPIC "sensors/dht/0/status"
 
