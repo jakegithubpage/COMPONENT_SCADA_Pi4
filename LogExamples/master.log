@@ -1,0 +1,9 @@
+channel state change: OPENING
+[MASTER] Running
+BI0 = A Sensor is Online 
+AI0 = Temp
+AI1 = Hum
+AI2 = Motion Sensor
+AI3 = Left Active Rotary
+AI4 = Right Active Rotary
+CI0 = Keypad press
