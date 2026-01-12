@@ -19,8 +19,8 @@ int main()
         "master",
         levels::NORMAL,
         ChannelRetry::Default(),
-        { IPEndpoint("x.x.x.x", 9000) },  /* gateway IP CHANGE DEPENDING ON YOUR IP ADDR -> SET PORT 9000 (9100 used for TCP) */
-        "0.0.0.0",                        // change to your master IP
+        { IPEndpoint("x.x.x.x", 9000) },  // gateway IP
+        "0.0.0.0",                        // master machine IP
         PrintingChannelListener::Create()
     );
 
@@ -47,9 +47,8 @@ int main()
     );
 
     std::cout << "[MASTER] Running\n";
-    std::cout << "BI0 = Sensor Online " << "\n" << "AI0 = Temp" << "\n" << "AI1 = Hum" << "\n" << "CI0 = Keypad press" << "AI2 = Motion Sensor" << "\n";
+    std::cout << "BI0 = A Sensor is Online " << "\n" << "AI0 = Temp" << "\n" << "AI1 = Hum" << "\n" << "AI2 = Motion Sensor" << "\n" << "AI3 = Left Active Rotary" << "\n" << "AI4 = Right Active Rotary" << "\n" << "CI0 = Keypad press" << "\n";
 
     while (true)
         std::this_thread::sleep_for(std::chrono::seconds(5));
 }
-
