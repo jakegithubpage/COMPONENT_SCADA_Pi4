@@ -25,6 +25,8 @@ struct SensorState
     float hum  = 0.0f;
     int HrStatusSt = 0;
     uint32_t keypad = 0;
+    int Left_ac = 0;
+    int Right_ac = 0;
     std::chrono::steady_clock::time_point last_update =
         std::chrono::steady_clock::now() - std::chrono::hours(24);
 };
@@ -111,6 +113,19 @@ static void ingest_thread(uint16_t port)
         		std::cout << "[HCSR501] STATE: " << HrStatus << "\n";
         	}
         }
+        else if (strcmp(type, "ROTARY") == 0)
+        {
+        	int L_ac, R_ac;
+        	if(sscanf(buf, "DEV=%*d,TYPE=ROTARY,L=%d,R=%d", &L_ac, &R_ac) == 2)
+        	{
+        		g_state.Left_ac = L_ac;
+        		g_state.Right_ac = R_ac;
+        		g_state.last_update = std::chrono::steady_clock::now();
+        		std::cout << "[ROTARY] LEFT ACTIVE: " << L_ac << " RIGHT ACTIVE: " << R_ac << "\n";
+        		
+        	}
+        	
+        }
         else if (strcmp(type, "T") == 0)
         {
         	if (sscanf(buf, "PASSCODE_CORRECT") == 1)
@@ -141,7 +156,7 @@ int main()
         "outstation",
         levels::NORMAL,
         ServerAcceptMode::CloseExisting,
-        IPEndpoint("0.0.0.0", 9000), /*Sends to LOCAL master -> config IP to your Local*/
+        IPEndpoint("0.0.0.0", 9000),
         PrintingChannelListener::Create()
     );
 
@@ -151,6 +166,9 @@ int main()
     config.database.binary_input[0] = BinaryConfig();   // ONLINE
     config.database.counter[0]      = CounterConfig();  // KEYPAD
     config.database.analog_input[2] = AnalogConfig();   // MOTION SENSOR
+    config.database.analog_input[3] = AnalogConfig(); 	// Left Active -> Rotary Encoder
+    config.database.analog_input[4] = AnalogConfig(); 	// Right Active -> Rotary Encoder
+    
 
     auto outstation = channel->AddOutstation(
         "station",
@@ -162,7 +180,7 @@ int main()
     outstation->Enable();
     std::cout << "[DNP3] Outstation on port 9000\n";
 
-    std::thread ingest(ingest_thread, 9100); 
+    std::thread ingest(ingest_thread, 9100);
 
     while (true)
     {
@@ -183,6 +201,8 @@ int main()
         b.Update(Binary(online),     0);
         b.Update(Counter(local.keypad), 0);
         b.Update(Analog(local.HrStatusSt), 2);
+        b.Update(Analog(local.Left_ac), 3);
+        b.Update(Analog(local.Right_ac), 4);
 
         outstation->Apply(b.Build());
         std::this_thread::sleep_for(std::chrono::seconds(1));
