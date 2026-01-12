@@ -8,8 +8,9 @@ import digitalio
 import serial
 from adafruit_character_lcd.character_lcd import Character_LCD_Mono
 
+#INSTALL MOSQUITTO BEFORE RUNTIME
 #sudo mosquitto -c /etc/mosquitto/mosquitto.conf -v
-#^start CMD for broker on 1885
+#^start mosquitto CMD for broker on 1885
 
 GPIO.setmode(GPIO.BCM)
 
